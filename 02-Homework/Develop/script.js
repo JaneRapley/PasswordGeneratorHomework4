@@ -28,6 +28,20 @@ function generatePassword() {
     garCharacters.push(getRandom(alphaLower))
   }
 
+  if (options.hasUppercase) {
+    possibleCharacters = possibleCharacters.concat(alphaCap)
+    garCharacters.push(getRandom(alphaCap))
+  }
+
+  if (options.hasNumbers) {
+    possibleCharacters = possibleCharacters.concat(number)
+    garCharacters.push(getRandom(number))
+  }
+
+  if (options.hasSpecial) {
+    possibleCharacters = possibleCharacters.concat(specialCharacters)
+    garCharacters.push(getRandom(specialCharacters))
+  }
 
 }
 
@@ -61,7 +75,7 @@ function getOptions() {
     hasUppercase === false &&
     hasLowercase === false &&
     hasNumbers === false &&
-    hasSpecial === false 
+    hasSpecial === false
   ) {
     alert("You must select at least one option before continuing")
     return
@@ -75,7 +89,8 @@ function getOptions() {
     hasSpecial: hasSpecial,
   }
 
-  return passwordOptions 
+  return passwordOptions
 }
+
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
