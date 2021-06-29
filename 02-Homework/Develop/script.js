@@ -1,55 +1,58 @@
-// Assignment Code
-var generateBtn = document.querySelector("#generate");
-var alphaCap = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-var alphaLower = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var number = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-var specialCharacters = ["!", "&", "^", "(", ")", "%", "%", "#"];
 
+var generateBtn = document.querySelector("#generate");
+
+var passwordCharacters = {
+ alphaCap : ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
+ alphaLower : ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
+ number : ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+ specialCharacters : ["!", "&", "^", "(", ")", "%", "%", "#"]
+}
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-
-
-
+ var passwordText = document.querySelector("#password");
   passwordText.value = password;
 
-}
+} 
 
 function generatePassword() {
   var options = getOptions()
 
   var result = [];
-  var possibleCharacters = [];
   var garCharacters = [];
 
   if (options.hasLowercase) {
-    possibleCharacters = possibleCharacters.concat(alphaLower)
-    garCharacters.push(getRandom(alphaLower))
+    garCharacters.push('alphaLower')
   }
 
   if (options.hasUppercase) {
-    possibleCharacters = possibleCharacters.concat(alphaCap)
-    garCharacters.push(getRandom(alphaCap))
+    garCharacters.push('alphaCap')
   }
 
   if (options.hasNumbers) {
-    possibleCharacters = possibleCharacters.concat(number)
-    garCharacters.push(getRandom(number))
+     garCharacters.push('number')
   }
 
   if (options.hasSpecial) {
-    possibleCharacters = possibleCharacters.concat(specialCharacters)
-    garCharacters.push(getRandom(specialCharacters))
+    garCharacters.push('specialCharacters')
   }
 
+  for(var i = 0; i < options.length; i++){
+
+   let garCharactersOpt = garCharacters[getRandom(garCharacters.length)];
+   let passwordOptionChar = passwordCharacters[garCharactersOpt];
+   result.push(passwordOptionChar[getRandom(passwordOptionChar.length)])
+
+
+  }
+   return result.join("");
 }
 
-function getRandom(arr) {
-  var ranIndex = Math.floor(Math.random() * arr.length)
-  var ranElement = arr[ranIndex]
+function getRandom(length) {
+  return  Math.floor(Math.random() * length)
 
-  return ranElement
+
+ 
 }
 
 
